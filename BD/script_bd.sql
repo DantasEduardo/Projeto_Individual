@@ -23,3 +23,10 @@ create table PlanoTreino(
     fkUsuario int,
     foreign key (fkUsuario) references Usuario(idUsuario)
 );
+
+create table Comentarios(
+	idComentario int primary key auto_increment,
+    descricaoComentario varchar(200),
+    fkUsuario int,
+    foreign key (fkUsuario) references Usuario(idUsuario)
+);
