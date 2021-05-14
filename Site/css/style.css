@@ -85,6 +85,7 @@ body{
     font-size: 16px;
     margin-left: 20px;
     opacity: 0.9;
+    border-radius: 5px;
 }
 .btn:hover {
     background-color: #919191;
@@ -92,10 +93,108 @@ body{
 
 .home_content_text{
     margin-top: 77px;
-    /* margin-left: 460px; */
 }
 .home_content_text h1{
     margin-left: 460px;
 }
-
+.see_more{
+    text-decoration: none;
+    color: blue;
+}
+.content_row{
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content_colun1 img{
+    height: 269px;
+    width: 316px;
+    
+}
+.content_colun2 img{
+    height: 269px;
+    width: 316px;
+    
+}
+.content_colun1{
+    margin-right: 90px;
+    width: 316px;
+    background-color: #d1d1d1;
+}
+.content_colun2{
+    margin-left: 90px;
+    width: 316px;
+    background-color: #d1d1d1;
+}
+.content_colun2 h2,.content_colun1 h2{
+    text-align: center;
+}
+.content_colun2 p,.content_colun1 p{
+    padding-left: 8px;
+}
 /* Fim home content */
+/* Início Footer */
+
+.footer{
+    margin-top: 30px;
+    float: left;
+    background-color: #000000;
+    width: 100%;
+    height: 60px;
+}
+
+.style_footer{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.div_footer_telefone, .div_footer_email, .div_footer_ajuda {
+    border-radius: 5px;
+    width: 300px;
+    height: 45px;
+    padding: 5px;
+    color: white;
+    font-weight: lighter;
+}
+
+.icones_footer{
+    height: 45px;
+    float: left;
+    margin-right: 10px;
+}
+
+/* Fim Footer */
+/* Começo Cadastro */
+.formulario {
+    float: left;
+    width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 34px;
+    margin-left: 380px;
+}
+
+form label, form p{
+    display: block;
+    font-size: 20px;
+    margin-bottom:10px ;
+}
+.input-padrao {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 25px;
+    width: 90%;
+
+    border-radius: 5px;
+    border: solid 1px #bbbbbb;
+}
+#logo{
+    margin-top: 34px;
+    height: 420px;
+    width: 420px;
+    float: left;
+}
+/* Fim Cadastro */
