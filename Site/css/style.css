@@ -198,3 +198,70 @@ form label, form p{
     float: left;
 }
 /* Fim Cadastro */
+/* Começo sobre */
+.sobre_content{
+    margin-top: 20px;
+}
+.sobre_content img{
+    margin-left: 450px;
+}
+/* Fim sobre */
+/* Começo artigos */
+.assunto {
+    background-color:  #d1d1d1;
+    border-bottom: solid  #000000; 
+    text-align: center;
+    width: 490px;
+    padding-top: 20px;
+    margin-top: 40px;
+    float: right;
+    margin-right: 20px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.assunto img{
+    height: 400px;
+    width: 400px;
+}
+.assunto_estilo {
+    margin-top: 30px;
+    text-align: center;
+    background-color: #d1d1d1;
+    height: 400px;
+    display: none;
+}
+/* Fim artigos */
+/* Começo fórum */
+.topic{
+    background-color:#d1d1d1;
+    padding: 20px;
+}
+.topic img{
+    width: 130px;
+    height: 130px;
+    float: left;
+    margin-right: 8px;
+}
+.input{
+    padding: 8px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 12px;
+    width: 70%;  
+}
+.input_search{
+    padding: 8px;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 12px;
+    width: 20%;  
+}
+.sub_topic{
+    margin-left: 137px;
+}
+/* Fim fórum */
+/* Começo treino */
+
+/* Fim treino */
