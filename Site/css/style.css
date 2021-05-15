@@ -86,6 +86,7 @@ body{
     margin-left: 20px;
     opacity: 0.9;
     border-radius: 5px;
+    cursor: pointer;
 }
 .btn:hover {
     background-color: #919191;
@@ -97,9 +98,8 @@ body{
 .home_content_text h1{
     margin-left: 460px;
 }
-.see_more{
-    text-decoration: none;
-    color: blue;
+.home_content_tetx a{
+    margin-left: 100px;
 }
 .content_row{
     margin-top: 60px;
@@ -167,7 +167,7 @@ body{
 
 /* Fim Footer */
 /* Começo Cadastro */
-.formulario {
+.formulario,.formulario_login {
     float: left;
     width: 500px;
     display: flex;
@@ -176,7 +176,12 @@ body{
     margin-top: 34px;
     margin-left: 380px;
 }
-
+.formulario_login {
+    margin-top: 110px;
+    margin-bottom: 162px;
+    /* background-image:url('/Site/img/5c7888890e948e08d04b1b8bf7ba18db.png');
+    background-repeat: no-repeat; */
+}
 form label, form p{
     display: block;
     font-size: 20px;
@@ -263,5 +268,65 @@ form label, form p{
 }
 /* Fim fórum */
 /* Começo treino */
-
+.btn_treino{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.box{
+    background-color: white;
+    border-width: 1pt;
+    font-size: .13in;
+    font-weight: bold;
+    height: .31in;
+    overflow: hidden;
+    text-align: center;
+    width: .70in;
+    text-transform: uppercase;
+}
+.box_title{
+    width: 100px;
+    height: 40px;
+}
+.graph {
+    background-color: #eaeaea;
+    display: inline-block;
+    width: 45%;
+    height: 250px;
+    margin: 10px;
+    padding: 5px;
+  }
+  
+  .dash {
+    margin: auto;
+    text-align: center;
+  }
 /* Fim treino */
+/* Começo perfil */
+.perfil{
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 113px;
+}
+.perfil img{
+    width: 300px;
+    height: 300px;
+}
+.perfil_btn{
+    display: inline-block;
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 20px;
+    opacity: 0.9;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 90px;
+}
+.perfil_char{
+    padding-top: 60px;
+}
+/* Fim perfil */
