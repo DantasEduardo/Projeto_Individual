@@ -93,7 +93,7 @@ body{
   }
 
 .home_content_text{
-    margin-top: 77px;
+    margin-top: 127px;
 }
 .home_content_text h1{
     margin-left: 460px;
@@ -179,8 +179,6 @@ body{
 .formulario_login {
     margin-top: 110px;
     margin-bottom: 162px;
-    /* background-image:url('/Site/img/5c7888890e948e08d04b1b8bf7ba18db.png');
-    background-repeat: no-repeat; */
 }
 form label, form p{
     display: block;
@@ -207,8 +205,24 @@ form label, form p{
 .sobre_content{
     margin-top: 20px;
 }
-.sobre_content img{
+.sobre_content_img{
     margin-left: 450px;
+    margin-top: 20px;
+}
+.sobre_content p{
+    padding-top: 8px;
+    text-align: justify;
+    width: 80%;
+    float: left;
+    margin-top: 10px;
+}
+.img_sobre{
+    width: 165px;
+    height: 165px;
+    margin-left: 18px;
+}
+.sobre_content h1{
+   align-items: center;
 }
 /* Fim sobre */
 /* Começo artigos */
@@ -225,15 +239,16 @@ form label, form p{
     cursor: pointer;
 }
 .assunto img{
-    height: 400px;
+    height: 200px;
     width: 400px;
 }
 .assunto_estilo {
     margin-top: 30px;
-    text-align: center;
     background-color: #d1d1d1;
-    height: 400px;
     display: none;
+}
+.assunto_estilo  h2{
+    text-align: center;
 }
 /* Fim artigos */
 /* Começo fórum */
