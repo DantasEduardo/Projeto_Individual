@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1><a href="index.html">BUSHIDO</h1>
+            <ul>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cadastro.html">Cadastro</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="formulario">
+         <form id="form_cadastro" method="post"> <!--onsubmit="return cadastrar()"> -->
+            Nome completo
+            <input type="text" name="nome" class="input-padrao" autofocus="autofocus" placeholder="Nome e sobrenome" required minlength="4">
+
+            CPF
+            <input type="text" name="cpf" class="input-padrao" placeholder="XXXXXXXXX-XX" required minlength="4">
+
+            CEP
+            <input type="text" name="cep" class="input-padrao" placeholder="XXXXX-XXX" required minlength="4">
+            
+            Data de nascimento
+            <input type="date" name="data" class="input-padrao" autofocus="autofocus" placeholder="YY/MM/DD" required minlength="4">
+
+            Qual Arte Marcial pratica?
+            <input type="text" name="arte_marcial" class="input-padrao" autofocus="autofocus" placeholder="Nenhuma" required minlength="4">
+
+            Email
+            <input type="text" name="email" class="input-padrao" placeholder="emai@email.com" required minlength="4">
+            
+            Login
+            <input type="text" name="login" class="input-padrao" placeholder="seu nome de usuário" required minlength="4">
+            
+            Senha
+            <input type="password" name="senha" class="input-padrao" placeholder="Senha" required minlength="4">
+            
+            <input type="submit" id="btn_entrar" value="Cadastrar" class="btn" style="margin-left: 60px;" >
+            <!-- <a class="btn" href="login.html" style="margin-left: 60px;">Cadastrar</a> -->
+        </form>
+        <img src="aguarde-orange.gif" id="img_aguarde" style="display: none; width:100px">
+    </div>
+    <div id="div_erro" style="background-color: sandybrown; color: maroon; display: none;">
+        Erro no cadastro
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="style_footer">
+                <div class="div_footer_telefone"><img class="icones_footer" src="img/old-typical-phone.png"> Telefone <br> (11)4002-8922</div>
+                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> dionysus@bandtec.com.br</div>
+                <div class="div_footer_ajuda"><img class="icones_footer" src="img/help.png" alt=""> Ajuda <br> Dúvidas Frequentes</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+        function cadastrar() {
+        aguardar();
+        var formulario = new URLSearchParams(new FormData(form_cadastro));
+        fetch("/usuarios/cadastrar", {
+            method: "POST",
+            body: formulario
+        }).then(function (response) {
+            
+            if (response.ok) {
+
+                window.location.href='login.html';
+
+            } else {
+
+                console.log('Erro de cadastro!');
+                response.text().then(function (resposta) {
+                    div_erro.innerHTML = resposta;
+                });
+                finalizar_aguardar();
+            }
+        });
+
+        return false;
+    }
+    function aguardar() {
+        btn_entrar.disabled = true;
+        img_aguarde.style.display='block';
+        div_erro.style.display='none';
+    }
+
+    function finalizar_aguardar() {
+        btn_entrar.disabled = false;
+        img_aguarde.style.display='none';
+        div_erro.style.display='block';
+    }
+</script>
