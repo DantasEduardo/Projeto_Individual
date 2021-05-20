@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Organizador de Treinos</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1><a href="index_logado.html">BUSHIDO</h1>
+            <ul>
+                <li><a href="sobre _logado.html">Sobre</a></li>
+                <li><a href="forum.html">Fórum</a></li>
+                <li><a href="treinos.html">Treinos</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+                <li><a href="index.html" onclick="logoff()">Sair</a></li>
+            </ul>
+        </div>
+    </div><br>
+    <div class="container">
+      <div class="formulario_treino">
+        <form id="form_treino" method="post" onsubmit="return cadastrar()">
+           Nome completo
+           <input type="text" name="nome" class="input-padrao" placeholder="Nome e sobrenome">
+
+           CPF
+           <input type="text" name="cpf" class="input-padrao" placeholder="XXXXXXXXX-XX">
+           
+           <input type="submit" id="btn_entrar" value="Cadastrar" class="btn" style="margin-left: 60px;" >
+           <!-- <a class="btn" href="login.html" style="margin-left: 60px;">Cadastrar</a> -->
+       </form>
+    </div>
+        <div class="btn_treino">
+            <button onclick="add_tabela_treino()" class="btn">+Adicionar treino</button>
+            <button onclick="remove_treino()" class="btn">-Remover treino</button>
+        </div><br>
+        <div id="tables_treino" class="btn_treino">
+        </div>
+        <div class="graph">
+            <canvas id="myChartLine"></canvas>
+        </div>
+        <div class="graph">
+            <canvas id="myChartBars"></canvas>
+        </div>
+        <div class="graph">
+            <canvas id="myChartPie"></canvas>
+          </div>
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="style_footer">
+                <div class="div_footer_telefone"><img class="icones_footer" src="img/old-typical-phone.png"> Telefone <br> (11)4002-8922</div>
+                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> dionysus@bandtec.com.br</div>
+                <div class="div_footer_ajuda"><img class="icones_footer" src="img/help.png" alt=""> Ajuda <br> Dúvidas Frequentes</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var tablenum = 0;
+    var divMapping = [
+        [0, 1, 0],
+        [2, 2, 2],
+        [2, 2, 2],
+        [2, 2, 2],
+        [2, 2, 2],
+        [2, 2, 2],
+        [2, 2, 2]
+        ];
+
+    function add_tabela_treino(){
+        var countRow = 0;
+        var countCol = 0;
+        var row_container = document.getElementById("tables_treino");
+        var table = document.createElement("table");
+        table.classList.add("table_treino");
+        row_container.appendChild(table); 
+        var tbody = document.createElement("tbody");
+        table.appendChild(tbody);
+        while (countRow < 7) {
+        var tr_row = document.createElement("tr");
+        tbody.appendChild(tr_row); 
+            while (countCol < 3) {
+            var td = document.createElement("td"); 
+            td.classList.add("box");
+            td.id = `tabela_${tablenum}_box_${countRow}_${countCol}`;
+            tr_row.appendChild(td);
+            if (divMapping[countRow][countCol] == 0) {
+                td.classList.remove("box");
+            }else if(divMapping[countRow][countCol] == 1){
+                td.classList.remove("box");
+                td.classList.add("box_title");
+            }
+            countCol++;
+            }
+        countRow++; 
+        countCol = 0;      
+    }
+    tablenum++;
+    add_treino()
+    }
+    
+  function add_treino(){
+    document.getElementById("form_treino").style.display = 'block';
+  }
+
+
+    //dados do gráfico
+    const labels = ['07:00','10:00','13:00','16:00','19:00','22:00'];
+    const data = {
+      labels: labels,
+      datasets: [
+        {
+        label: 'Temperatura diária',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [21, 23, 27, 19, 20, 19],
+        }
+      ]
+    };
+  
+    //Configuração do gráfico
+    const config = {
+      type: 'line',
+      data,
+      options: { maintainAspectRatio: false, }
+    };
+  
+    var myChartLine = new Chart(document.getElementById('myChartLine'),config);
+  
+    const labelsBars = ['Colisa','Tetra','Coridora','Molinésia','Arco-íris','Betta'];
+    const dataBars = {
+      labels: labelsBars,
+      datasets: [
+        {
+        label: 'Quantidade por espécie',
+        backgroundColor: ['red','blue','yellow'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: [10, 70, 50, 5, 30, 65],
+        }
+      ]
+    };
+  
+    const configBars = {
+      type: 'bar',
+      data:dataBars,
+      options: { maintainAspectRatio: false, }
+    };
+    var myBARS = new Chart(document.getElementById('myChartBars'),configBars);
+  
+    const labelsPie = ['Jovem','Adulto','Idoso'];
+    const dataPie = {
+      labels: labelsPie,
+      datasets: [
+        {
+        label: 'Quantidade por idade',
+        backgroundColor: ['red','blue','yellow'],
+        borderColor: 'rgb(255, 99, 132)',
+        data: [153,60,17],
+        }
+      ]
+    };
+  
+    const configPie = {
+      type: 'pie',
+      data:dataPie,
+      options: { maintainAspectRatio: false, }
+    };
+  
+    var myPie = new Chart(document.getElementById('myChartPie'),configPie);
+
+  </script>  
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Artes Marciais</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1><a href="index_logado.html">BUSHIDO</h1>
+            <ul>
+                <li><a href="sobre_logado.html">Sobre</a></li>
+                <li><a href="forum.html">Fórum</a></li>
+                <li><a href="treinos.html">Treinos</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+                <li><a href="index.html" onclick="logoff()">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="home_content_text" style="margin-top: 40px;;">
+            <h1>ARTES MARCIAIS  </h1>
+            <p>     Artes marciais são técnicas e práticas físicas e mentais divididas em diferentes níveis, com o objetivo de desenvolvimento de seus praticantes para que possam se defender ou submeter o adversário e expressar um ideal. Artes marciais também são praticadas como modalidades de cunho esportivo.<br>
+                    O termo "arte marcial" ou "arte da guerra" tem origem ocidental, quando na Roma antiga o deus grego-romano da guerra Ares/Marte ensinou a técnica de luta ao ser humano. Na Roma eram artes militares ensinadas aos homens, de acordo com a legião que atuava no exército do império, para o confronto direto ou corpo a corpo.
+                Bushido, caminho do guerreiro, Wushu, a arte de dominar a guerra ou parar a guerra, são traduções orientais para o significado de artes marciais <br>
+                    Não conseguimos datar com exatidão um início para a prática das artes marciais, mas as mais antigas seriam o kung-fu com mais de 5mil anos de prática na china, Kalaripayattu na Índia e até algumas técnicas de imobilização praticadas por guardas reais na Mesopotâmia.
+            </p>
+        </div>
+
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="assunto" onclick="mudarestado_assunto_1()">
+                <img src="./img/fechar-punhos-1.jpg">
+                <h2>Calejamento</h2><br>
+                <p>Calejamento seriam técnicas para criar calos afim de deixar certas regiões mais resistentes aponto de quebrar tijolos, telhas e placas de madeira. Mas será que realmente funciona?</p><br>
+            </div>
+            <!-- <div class="assunto" onclick="mudarestado_assunto_2()">
+                <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
+                <h2>Assunto 2</h2><br>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis totam aut officia. Eveniet saepe repellat ratione nostrum? Repellendus accusamus illum eius fugiat, maxime culpa molestiae recusandae, quas beatae, asperiores nostrum!</p>
+            </div> -->
+        </div>
+        <div id="assunto_1" class="assunto_estilo">
+            <h2><b>Calejamento</b></h2><br>
+            <p>Existem dois tipos de calejamento, o primeiro calejamento seria para criar um referencial de dor, serve para diminuir o medo de levar um golpe e criar uma certa "resistência" a pequenas dores, é feito durante um treino normal usando saco de pancadas, aparadores e sparing com um colega.<br> O segundo tipo seria para aumentar a densidade dos ossos através de micro lesões, o osso pode ser dividido em uma parte mais dura, a externa, e uma mais maleável, a interna, o problema é que focando nesse calejamento em troca de aumentar a parte mais dura você diminui a parte mais maleável e a flexibilidade do osso aumentando drasticamente as chances de se ter uma lesão.<br> Lembre-se de seguir uma rotina de treino progressiva e sem pular nenhuma etapa. Apesar do corpo humano ser uma máquina incrível sua pele nunca será tão dura quanto concreto e seus ossos mais fortes que metal.</p>
+        </div>
+        <!-- <div id="assunto_2" class="assunto_estilo">
+            <h2><b>Assunto 2</b></h2><br>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt dolorum totam modi beatae, fugiat perferendis illo odit animi accusamus aliquid quas corporis, assumenda rerum dolor! Iusto deserunt repellendus minus pariatur.</p>
+        </div> -->
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="style_footer">
+                <div class="div_footer_telefone"><img class="icones_footer" src="img/old-typical-phone.png"> Telefone <br> (11)4002-8922</div>
+                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> dionysus@bandtec.com.br</div>
+                <div class="div_footer_ajuda"><img class="icones_footer" src="img/help.png" alt=""> Ajuda <br> Dúvidas Frequentes</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+        function mudarestado_assunto_1() {
+        var display = document.getElementById('assunto_1').style.display;
+        if(display == "none"){
+            document.getElementById('assunto_1').style.display = 'block';
+            // document.getElementById('assunto_2').style.display = 'none';
+            // document.getElementById('assunto_3').style.display = 'none';
+            // document.getElementById('assunto_4').style.display = 'none';
+        }
+        else{
+            document.getElementById('assunto_1').style.display = 'none';}
+        }
+    //     function mudarestado_assunto_2() {
+    //     var display = document.getElementById('assunto_2').style.display;
+    //     if(display == "none"){
+    //         document.getElementById('assunto_2').style.display = 'block';
+    //         document.getElementById('assunto_1').style.display = 'none';
+    //         document.getElementById('assunto_3').style.display = 'none';
+    //         document.getElementById('assunto_4').style.display = 'none';}
+    //     else{
+    //         document.getElementById('assunto_2').style.display = 'none';}
+    // }
+</script>

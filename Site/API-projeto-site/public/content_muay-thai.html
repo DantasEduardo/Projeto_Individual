@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Muay-thai</title>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1><a href="index_logado.html">BUSHIDO</h1>
+            <ul>
+                <li><a href="sobre_logado.html">Sobre</a></li>
+                <li><a href="forum.html">Fórum</a></li>
+                <li><a href="treinos.html">Treinos</a></li>
+                <li><a href="perfil.html">Perfil</a></li>
+                <li><a href="index.html" onclick="logoff()">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="home_content_text" style="margin-top: 40px;;">
+            <h1 style="margin-left: 535px;">MUAY-THAI</h1>
+            <p>Muay-thai, traduzido como "luta tailandesa" é uma arte marcial originária da 
+                Tailândia, considerado o esporte nacional, esta disciplina física e mental 
+                que é conhecida como "a arte das oito armas", pois caracteriza-se pelo uso 
+                combinado de punhos, cotovelos, joelhos, canelas e pés, tornando uma arte 
+                marcial muito agressiva.<br>
+                O Muay-thai foi desenvolvido há cerca de dois mil anos, sendo atualmente 
+                considerada uma das mais poderosas lutas de contato do mundo, tornou-se 
+                popular internacionalmente no século XX quando inúmeros lutadores 
+                tailandeses conquistaram diversas vitórias sobre representantes de 
+                outras artes marciais.</p>
+        </div>
+
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <div class="assunto" onclick="mudarestado_assunto_1()">
+                <img src="./img/download.jpg " style="height: 400px;">
+                <h2>A origem do Muay-thai</h2><br>
+                <p>Muay-thai, a arte das oito armas, uma das artes marciais mais violentas e agressivas do mundo. Quando e onde ela teve inicio?</p>
+            </div>
+                <!-- <div class="assunto" onclick="mudarestado_assunto_2()">
+                <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
+                <h2>Assunto 2</h2><br>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis totam aut officia. Eveniet saepe repellat ratione nostrum? Repellendus accusamus illum eius fugiat, maxime culpa molestiae recusandae, quas beatae, asperiores nostrum!</p>
+            </div> -->
+        </div>
+        <div id="assunto_1" class="assunto_estilo">
+            <h2><b>A origem do Muay-thai</b></h2><br>
+            <p>O Muay-thai teria surgido por volta de 2 mil anos atrás, quando o povo 
+                tailandês foi forçado a sair da China e saíram em busca de terras férteis
+                para o sul. Durante o caminho e até quando chegaram na região da atual 
+                Tailândia enfrentaram diversos grupos de bandidos e inimigos querendo tomar
+                suas terras. Assim surgiu o método de autodefesa chupasart se baseando no 
+                Kung-fu, que usava todo tipo de armas – espadas, lanças, machados etc. 
+                Para evitar mutilações e mortes nos treinos, as armas foram abolidas, dando 
+                origem ao Muay-boran que continuava sendo extremamente violento. No Muay-boran
+                era utilizado cordas nos punhos, as vezes com gola e vidro moído e conchas 
+                e casca de coco para proteger a genital.<br>
+                Em 1930 o governo Tailandês decidiu adicionar algumas regras de boxe ao 
+                Muay-boran assim nascendo o Muay-thai, onde se usaria luvas, as lutas seriam
+                feitas em ringues com a presença de um arbitro no ringue e árbitros auxiliares
+                e as lutas teriam 5 rounds de 3 min.<br>
+                O Muay-thai é tão popular e importante para a cultura Tailandesa quanto futebol
+                é para os brasileiros</p>
+        </div>
+        <!-- <div id="assunto_2" class="assunto_estilo">
+            <h2><b>Assunto 2</b></h2><br>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt dolorum totam modi beatae, fugiat perferendis illo odit animi accusamus aliquid quas corporis, assumenda rerum dolor! Iusto deserunt repellendus minus pariatur.</p>
+        </div>
+        </div> -->
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="style_footer">
+                <div class="div_footer_telefone"><img class="icones_footer" src="img/old-typical-phone.png"> Telefone <br> (11)4002-8922</div>
+                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> dionysus@bandtec.com.br</div>
+                <div class="div_footer_ajuda"><img class="icones_footer" src="img/help.png" alt=""> Ajuda <br> Dúvidas Frequentes</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    function mudarestado_assunto_1() {
+        var display = document.getElementById('assunto_1').style.display;
+        if(display == "none"){
+            document.getElementById('assunto_1').style.display = 'block';
+            // document.getElementById('assunto_2').style.display = 'none';
+            // document.getElementById('assunto_3').style.display = 'none';
+            // document.getElementById('assunto_4').style.display = 'none';
+        }
+        else{
+            document.getElementById('assunto_1').style.display = 'none';}
+        }
+    //     function mudarestado_assunto_2() {
+    //     var display = document.getElementById('assunto_2').style.display;
+    //     if(display == "none"){
+    //         document.getElementById('assunto_2').style.display = 'block';
+    //         document.getElementById('assunto_1').style.display = 'none';
+    //         document.getElementById('assunto_3').style.display = 'none';
+    //         document.getElementById('assunto_4').style.display = 'none';}
+    //     else{
+    //         document.getElementById('assunto_2').style.display = 'none';}
+    // }
+</script>
