@@ -298,12 +298,13 @@ form label, form p{
     overflow: hidden;
     text-align: center;
     width: .70in;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 .box_title{
     width: 100px;
     height: 40px;
     background-color: grey;
+    text-align: center;
 }
 .graph {
     background-color: #eaeaea;
@@ -322,13 +323,29 @@ form label, form p{
       background-color: grey;
       margin-left: 30px;
   }
-  .formulario_treino{
-    /* float: left; */
+  #formulario_treino{
+    align-items: center;
+    justify-content: center;
     width: 500px;
     margin-top: 34px;
     margin-left: 340px;
-    display: none;
-    
+    margin-bottom: 34px;
+    display: flex;   
+    text-align: center;
+    background-color: #bbbbbb;
+    border-radius: 12px;
+    padding: 8px;
+    flex-direction: column;
+    overflow: auto;
+}
+.input-treino {
+    display: block;
+    margin-bottom: 20px;
+    padding: 10px 25px;
+    width: 90%;
+    border-radius: 5px;
+    border: solid 1px #bbbbbb;
+    text-align: center;
 }
 /* Fim treino */
 /* Começo perfil */

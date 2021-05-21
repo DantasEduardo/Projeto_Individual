@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="style.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Organizador de Treinos</title>
 </head>
@@ -23,20 +22,27 @@
         </div>
     </div><br>
     <div class="container">
-      <div class="formulario_treino">
-        <form id="form_treino" method="post" onsubmit="return cadastrar()">
-           Nome completo
-           <input type="text" name="nome" class="input-padrao" placeholder="Nome e sobrenome">
+      <div id="formulario_treino">
+        <form id="form_treino" method="post" >
+           Nome do Treino
+           <input type="text" id="nome_treino" class="input-treino" placeholder="Treino 1">
 
-           CPF
-           <input type="text" name="cpf" class="input-padrao" placeholder="XXXXXXXXX-XX">
-           
-           <input type="submit" id="btn_entrar" value="Cadastrar" class="btn" style="margin-left: 60px;" >
+           Exercicio 1
+           <input type="text" id="exercicio_1" class="input-treino" placeholder="Exercicio 1">
+
+           Quantas Repetições do Exercicio 1
+           <input type="text" id="qtd_rep_1" class="input-treino" placeholder="100x">
+
+           Tempo de execução do Exercicio 1
+           <input type="text" id="temp_1" class="input-treino" placeholder="-">
+
            <!-- <a class="btn" href="login.html" style="margin-left: 60px;">Cadastrar</a> -->
-       </form>
-    </div>
+        </form><br>
+          <button id="btn_entrar" class="btn"   onclick="add_campo()">Adicionar Exercicio</button><br>
+          <button id="btn_entrar" class="btn"  onclick="add_tabela_treino()">Confirmar</button><br>
+      </div>
         <div class="btn_treino">
-            <button onclick="add_tabela_treino()" class="btn">+Adicionar treino</button>
+            <button onclick="add_treino()" class="btn">+Adicionar treino</button>
             <button onclick="remove_treino()" class="btn">-Remover treino</button>
         </div><br>
         <div id="tables_treino" class="btn_treino">
@@ -62,52 +68,111 @@
     </div>
 </body>
 <script>
-    var tablenum = 0;
-    var divMapping = [
-        [0, 1, 0],
-        [2, 2, 2],
-        [2, 2, 2],
-        [2, 2, 2],
-        [2, 2, 2],
-        [2, 2, 2],
-        [2, 2, 2]
-        ];
-
-    function add_tabela_treino(){
-        var countRow = 0;
-        var countCol = 0;
-        var row_container = document.getElementById("tables_treino");
-        var table = document.createElement("table");
-        table.classList.add("table_treino");
-        row_container.appendChild(table); 
-        var tbody = document.createElement("tbody");
-        table.appendChild(tbody);
-        while (countRow < 7) {
-        var tr_row = document.createElement("tr");
-        tbody.appendChild(tr_row); 
-            while (countCol < 3) {
-            var td = document.createElement("td"); 
-            td.classList.add("box");
-            td.id = `tabela_${tablenum}_box_${countRow}_${countCol}`;
-            tr_row.appendChild(td);
-            if (divMapping[countRow][countCol] == 0) {
-                td.classList.remove("box");
-            }else if(divMapping[countRow][countCol] == 1){
-                td.classList.remove("box");
-                td.classList.add("box_title");
-            }
-            countCol++;
-            }
-        countRow++; 
-        countCol = 0;      
-    }
-    tablenum++;
-    add_treino()
-    }
-    
+  var table_num = 0;
+  var num_exercicio = 1;
+  var divMapping = [
+    [0, 1, 0],
+    [2, 2, 2],
+    [2, 2, 2]
+  ];
   function add_treino(){
-    document.getElementById("form_treino").style.display = 'block';
+    document.getElementById('formulario_treino').style.display = 'flex';
   }
+  
+  function add_campo(){
+    ++num_exercicio
+    form_treino.innerHTML += `Exercicio ${num_exercicio}
+                              <input type="text" id="exercicio_${num_exercicio}" class="input-treino" placeholder="Exercicio ${num_exercicio}">
+
+                              Quantas Repetições do Exercicio ${num_exercicio}
+                              <input type="text" id="qtd_rep_${num_exercicio}" class="input-treino" placeholder="10km">
+
+                              Tempo de execução do Exercicio ${num_exercicio}
+                              <input type="text" id="temp_${num_exercicio}" class="input-treino" placeholder="1h">`;
+    divMapping.push([2, 2, 2])
+    }
+  
+    function add_tabela_treino(){
+      var countRow = 0;
+      var countCol = 0;
+      var row_container = document.getElementById("tables_treino");
+    var table = document.createElement("table");
+    table.classList.add("table_treino");
+    table.id=`table_${table_num}`;
+    row_container.appendChild(table); 
+    var tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    while (countRow <= num_exercicio+1) {
+      var tr_row = document.createElement("tr");
+      tbody.appendChild(tr_row); 
+      while (countCol < 3) {
+        var td = document.createElement("td"); 
+        td.classList.add("box");
+        td.id = `tabela_${table_num}_box_${countRow}_${countCol}`;
+        tr_row.appendChild(td);
+        if (divMapping[countRow][countCol] == 0) {
+          td.classList.remove("box");
+        }else if(divMapping[countRow][countCol] == 1){
+              td.classList.remove("box");
+              td.classList.add("box_title");
+              td.innerHTML=`${nome_treino.value}`
+        }
+          countCol++;
+        }
+      countRow++; 
+      countCol = 0;      
+    }
+    add_valores_tabela() 
+    table_num++;
+    num_exercicio = 1;
+    reset_form()
+  } 
+  
+  function reset_form(){
+    form_treino.innerHTML = `Nome do Treino
+                            <input type="text" id="nome_treino" class="input-treino" placeholder="Treino 1">
+
+                            Exercicio 1
+                            <input type="text" id="exercicio_1" class="input-treino" placeholder="Exercicio 1">
+
+                            Quantas Repetições do Exercicio 1
+                            <input type="text" id="qtd_rep_1" class="input-treino" placeholder="100x">
+
+                            Tempo de execução do Exercicio 1
+                            <input type="text" id="temp_1" class="input-treino" placeholder="-">`;
+  }
+  
+  function add_valores_tabela(){
+    var valor_form = [];
+    valor_form.push(["Repetições","Exercicío","Tempo"]);
+    if(num_exercicio>1){
+      for(i=1;i<=num_exercicio;i++){
+        var rep = document.getElementById(`qtd_rep_${i}`);
+        var exercicio = document.getElementById(`exercicio_${i}`);
+        var time = document.getElementById(`temp_${i}`);
+        valor_form.push([rep.value,exercicio.value,time.value]);
+      }
+      console.log(valor_form);
+    }else{
+      valor_form.push([qtd_rep_1.value,exercicio_1.value,temp_1.value]);      
+      console.log(valor_form[0][0]);
+      console.log(valor_form);
+    }   
+    // x começa em 1 para pular a primeira linha da tabela 
+    // e depois subtraido para percorrer o array do ponto 0,0
+        for(x=1;x<=num_exercicio+1;x++){
+          for(y=0;y<3;y++){
+            document.getElementById(`tabela_${table_num}_box_${x}_${y}`).innerHTML=valor_form[x-1][y];
+          
+          }
+        }
+  }
+
+
+
+
+
+
 
 
     //dados do gráfico
