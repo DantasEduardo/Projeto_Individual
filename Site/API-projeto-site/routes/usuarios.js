@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var sequelize = require('../models').sequelize;
 var Usuario = require('../models').Usuario;
+var treino = require('../models').treino;
 
 let sessoes = [];
 
@@ -49,6 +50,21 @@ router.post('/cadastrar', function(req, res, next) {
 		email : req.body.email,
 		login : req.body.login,
 		senha: req.body.senha
+	}).then(resultado => {
+		console.log(`Registro criado: ${resultado}`)
+        res.send(resultado);
+    }).catch(erro => {
+		console.error(erro);
+		res.status(500).send(erro.message);
+  	});
+});
+
+router.post('/treino', function(req, res, next) {
+	console.log('Inserindo Treino');
+
+	treino.create({
+		nome : req.body.nomeTreino,
+		desc : req.body.sendBD,
 	}).then(resultado => {
 		console.log(`Registro criado: ${resultado}`)
         res.send(resultado);

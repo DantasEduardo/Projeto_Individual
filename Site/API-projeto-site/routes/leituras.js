@@ -5,12 +5,12 @@ var Leitura = require('../models').Leitura;
 var env = process.env.NODE_ENV || 'development';
 
 /* Recuperar as últimas N leituras */
-router.get('/ultimas/:idcaminhao', function(req, res, next) {
+router.get('/ultimas/treino', function(req, res, next) {
 	
 	// quantas são as últimas leituras que quer? 7 está bom?
 	const limite_linhas = 7;
 
-	var idcaminhao = req.params.idcaminhao;
+	var fkCadastro = req.params.idCadastro;
 
 	console.log(`Recuperando as ultimas ${limite_linhas} leituras`);
 	
@@ -19,23 +19,19 @@ router.get('/ultimas/:idcaminhao', function(req, res, next) {
 	if (env == 'dev') {
 		// abaixo, escreva o select de dados para o Workbench
 		instrucaoSql = `select 
-		temperatura, 
-		umidade, 
-		momento,
-		DATE_FORMAT(momento,'%H:%i:%s') as momento_grafico
-		from leitura
-		where fkcaminhao = ${idcaminhao}
-		order by id desc limit ${limite_linhas}`;
+		nome, 
+		descricao
+		from treinos
+		where fkCadastro = 1
+		order by idTreino desc limit ${limite_linhas}`;
 	} else if (env == 'production') {
 		// abaixo, escreva o select de dados para o SQL Server
 		instrucaoSql = `select top ${limite_linhas} 
-		temperatura, 
-		umidade, 
-		momento,
-		FORMAT(momento,'HH:mm:ss') as momento_grafico
-		from leitura
-		where fkcaminhao = ${idcaminhao}
-		order by id desc`;
+		nome, 
+		descricao
+		from treinos
+		where fkCadastro = 1
+		order by idTreino desc`;
 	} else {
 		console.log("\n\n\n\nVERIFIQUE O VALOR DE LINHA 1 EM APP.JS!\n\n\n\n")
 	}
