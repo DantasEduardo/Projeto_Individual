@@ -278,9 +278,23 @@ form label, form p{
     border-bottom: 1px solid #ccc;
     border-radius: 12px;
     width: 20%;  
+    float: left;
 }
 .sub_topic{
     margin-left: 137px;
+}
+#formulario_forum{
+  align-items: center;
+  justify-content: center;
+  width: 500px;
+  margin-top: 34px;
+  margin-left: 340px;
+  margin-bottom: 34px;  
+  text-align: center;
+  background-color: #bbbbbb;
+  border-radius: 12px;
+  padding: 8px;
+  display: block;
 }
 /* Fim fórum */
 /* Começo treino */
@@ -329,17 +343,16 @@ form label, form p{
     width: 500px;
     margin-top: 34px;
     margin-left: 340px;
-    margin-bottom: 34px;
-    display: flex;   
+    margin-bottom: 34px;  
     text-align: center;
     background-color: #bbbbbb;
     border-radius: 12px;
     padding: 8px;
     flex-direction: column;
     overflow: auto;
-}
+    display: none;
+  }
 .input-treino {
-    display: block;
     margin-bottom: 20px;
     padding: 10px 25px;
     width: 90%;

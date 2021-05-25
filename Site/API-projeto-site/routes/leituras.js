@@ -12,7 +12,7 @@ router.get('/ultimas/treino', function(req, res, next) {
 
 	var fkCadastro = req.params.idCadastro;
 
-	console.log(`Recuperando as ultimas ${limite_linhas} leituras`);
+	console.log(`Recuperando as ultimas  leituras`);
 	
 	let instrucaoSql = "";
 
@@ -23,11 +23,50 @@ router.get('/ultimas/treino', function(req, res, next) {
 		descricao
 		from treinos
 		where fkCadastro = 1
-		order by idTreino desc limit ${limite_linhas}`;
+		`;
 	} else if (env == 'production') {
 		// abaixo, escreva o select de dados para o SQL Server
-		instrucaoSql = `select top ${limite_linhas} 
+		instrucaoSql = `select  
 		nome, 
+		descricao
+		from treinos
+		where fkCadastro = 1
+		order by idTreino desc`;
+	} else {
+		console.log("\n\n\n\nVERIFIQUE O VALOR DE LINHA 1 EM APP.JS!\n\n\n\n")
+	}
+	
+	sequelize.query(instrucaoSql, {
+		model: Leitura,
+		mapToModel: true 
+	})
+	.then(resultado => {
+		console.log(`Encontrados: ${resultado.length}`);
+		res.json(resultado);
+	}).catch(erro => {
+		console.error(erro);
+		res.status(500).send(erro.message);
+	});
+});
+
+router.get('/ultimas/repeticao', function(req, res, next) {
+
+	var fkCadastro = req.params.idCadastro;
+
+	console.log(`Recuperando as ultimas leituras`);
+	
+	let instrucaoSql = "";
+
+	if (env == 'dev') {
+		// abaixo, escreva o select de dados para o Workbench
+		instrucaoSql = `select  
+		descricao
+		from treinos
+		where fkCadastro = 1
+		order by idTreino`;
+	} else if (env == 'production') {
+		// abaixo, escreva o select de dados para o SQL Server
+		instrucaoSql = `select 
 		descricao
 		from treinos
 		where fkCadastro = 1

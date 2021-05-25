@@ -6,47 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
     <title>Fórum</title>
+    <script type="text/javascript" src="funcoes.js"></script>
 </head>
 <body>
     <div class="header">
         <div class="container">
             <h1><a href="index_logado.html">BUSHIDO</h1>
             <ul>
-                <li><a href="sobre _logado.html">Sobre</a></li>
+                <li><a href="sobre_logado.html">Sobre</a></li>
                 <li><a href="forum.html">Fórum</a></li>
                 <li><a href="treinos.html">Treinos</a></li>
                 <li><a href="perfil.html">Perfil</a></li>
-                <li><a href="index.html" onclick="logoff()">Sair</a></li>
+                <li><a href="#"  onclick="logoff()">Sair</a></li>
             </ul>
         </div>
     </div><br>
     <div class="container">
-        <input class="input_search" id="in_search" placeholder="Buscar Tópico" style="background-color: rgb(197, 197, 197);"><br>
+        <input class="input_search" id="in_search" placeholder="Buscar Tópico" style="background-color: rgb(197, 197, 197);">
+        <button class="btn" onclick="add_topic()">Novo comentário</button><br>
+        <div id="formulario_forum">
+          <form id="form_topic" method="post">
+            
+            <input type="text" id="comentario" name="comentario" class="input-treino" placeholder="Comentário">
+        </form>  
+            <button onclick="create_topic()" class='btn'>Criar novo comentário</button>
+        </div>
+        <div id='content_forum' class="topic">
+
+        </div>
         <div class="topic">
-            <h2>Tópico 1</h2><br>
             <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
-            <h3>Nome Sobrenome</h3>
+            <h3 id='b_usuario'></h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, non alias nostrum amet eaque recusandae minus aliquid magni cumque. Placeat culpa deserunt dignissimos ex nulla harum nihil iste aliquam beatae.</p><br>
-            <input class="input" id="resposta" placeholder="Responder.."><br>
-            <div class="sub_topic">
-                <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
-                <h3>Nome Sobrenome</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, non alias nostrum amet eaque recusandae minus aliquid magni cumque. Placeat culpa deserunt dignissimos ex nulla harum nihil iste aliquam beatae.</p><br>
-                <input class="input" id="resposta" placeholder="Responder..">
+        
+        
             </div><br>
-            <div class="topic">
-                <h2>Tópico 2</h2><br>
-                <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
-                <h3>Nome Sobrenome</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, non alias nostrum amet eaque recusandae minus aliquid magni cumque. Placeat culpa deserunt dignissimos ex nulla harum nihil iste aliquam beatae.</p><br>
-                <input class="input" id="resposta" placeholder="Responder.."><br>
-                <div class="sub_topic">
-                    <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
-                    <h3>Nome Sobrenome</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, non alias nostrum amet eaque recusandae minus aliquid magni cumque. Placeat culpa deserunt dignissimos ex nulla harum nihil iste aliquam beatae.</p><br>
-                    <input class="input" id="resposta" placeholder="Responder..">
-                </div>
-            </div>
         </div>
     </div>
     <div class="footer">
@@ -60,3 +54,63 @@
     </div>
 </body>
 </html>
+<script>
+    function add_topic(){
+        document.getElementById('formulario_forum');
+    }
+    function create_topic(){
+        content_forum.innerHTML += `
+                                <img src="./img/5c7888890e948e08d04b1b8bf7ba18db.png">
+                                <h3 id='b_usuario'>${b_usuario.value}</h3>
+                                <p>${comentario.value}</p><br>`
+                                    publicar_topic()
+                                }
+                                
+    function publicar_topic() {
+        console.log("entrei!")
+        
+        var formulario = new URLSearchParams(new FormData(form_topic));
+        var  idCadastro = sessionStorage.id_comentario_meuapp;
+        fetch(`/publicacoes/publicar/${idCadastro}`, {
+            method: "POST",
+            body: formulario
+        }).then(resposta => {
+
+            if (resposta.ok) {
+                // obterPublicacoes();
+                console.log('Inserido com sucesso')
+            } else {
+                console.log('Erro ao publicar!');
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        });
+
+        return false;
+    }
+
+    function obterPublicacoes() {
+        aguardar();
+        fetch("/publicacoes")
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                   
+                    atualizarFeed(resposta);
+
+                    finalizarAguardar();
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                finalizarAguardar("Nenhum resultado encontrado ou erro na API");
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção das publicações: ${error.message}`);
+        });
+    }
+    verificar_autenticacao();
+
+</script>
