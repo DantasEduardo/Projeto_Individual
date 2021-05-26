@@ -256,6 +256,9 @@ form label, form p{
 .topic{
     background-color:#d1d1d1;
     padding: 20px;
+    height: 130px;
+    margin-bottom: 47px;
+    
 }
 .topic img{
     width: 130px;
@@ -338,6 +341,21 @@ form label, form p{
       margin-left: 30px;
   }
   #formulario_treino{
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    margin-top: 34px;
+    margin-left: 340px;
+    margin-bottom: 34px;  
+    text-align: center;
+    background-color: #bbbbbb;
+    border-radius: 12px;
+    padding: 8px;
+    flex-direction: column;
+    overflow: auto;
+    display: none;
+  }
+  #formulario_treino_delete{
     align-items: center;
     justify-content: center;
     width: 500px;

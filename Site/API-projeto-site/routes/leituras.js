@@ -5,12 +5,12 @@ var Leitura = require('../models').Leitura;
 var env = process.env.NODE_ENV || 'development';
 
 /* Recuperar as últimas N leituras */
-router.get('/ultimas/treino', function(req, res, next) {
+router.get('/ultimas/treino/:idCadastro', function(req, res, next) {
 	
 	// quantas são as últimas leituras que quer? 7 está bom?
 	const limite_linhas = 7;
 
-	var fkCadastro = req.params.idCadastro;
+	var idCadastro = req.params.idCadastro;
 
 	console.log(`Recuperando as ultimas  leituras`);
 	
@@ -22,7 +22,7 @@ router.get('/ultimas/treino', function(req, res, next) {
 		nome, 
 		descricao
 		from treinos
-		where fkCadastro = 1
+		where fkCadastro = ${idCadastro}
 		`;
 	} else if (env == 'production') {
 		// abaixo, escreva o select de dados para o SQL Server
@@ -49,9 +49,9 @@ router.get('/ultimas/treino', function(req, res, next) {
 	});
 });
 
-router.get('/ultimas/repeticao', function(req, res, next) {
+router.get('/ultimas/repeticao/:idCadastro', function(req, res, next) {
 
-	var fkCadastro = req.params.idCadastro;
+	var idCadastro = req.params.idCadastro;
 
 	console.log(`Recuperando as ultimas leituras`);
 	
@@ -62,14 +62,14 @@ router.get('/ultimas/repeticao', function(req, res, next) {
 		instrucaoSql = `select  
 		descricao
 		from treinos
-		where fkCadastro = 1
+		where fkCadastro = ${idCadastro}
 		order by idTreino`;
 	} else if (env == 'production') {
 		// abaixo, escreva o select de dados para o SQL Server
 		instrucaoSql = `select 
 		descricao
 		from treinos
-		where fkCadastro = 1
+		where fkCadastro = ${idCadastro}
 		order by idTreino desc`;
 	} else {
 		console.log("\n\n\n\nVERIFIQUE O VALOR DE LINHA 1 EM APP.JS!\n\n\n\n")
@@ -88,6 +88,42 @@ router.get('/ultimas/repeticao', function(req, res, next) {
 	});
 });
 
+router.get('/cadastro', function(req, res, next) {
+
+	console.log(`Recuperando as ultimas leituras`);
+	
+	let instrucaoSql = "";
+
+	if (env == 'dev') {
+		// abaixo, escreva o select de dados para o Workbench
+		instrucaoSql = `select  
+		arteMarcial, 
+		idade,
+		DATE_FORMAT(idade,'%Y') as idade
+		from cadastro
+		order by idCadastro`;
+	} else if (env == 'production') {
+		// abaixo, escreva o select de dados para o SQL Server
+		instrucaoSql = `select 
+		idade,arteMarcial 
+		from cadastro
+		order by idCadastro desc`;
+	} else {
+		console.log("\n\n\n\nVERIFIQUE O VALOR DE LINHA 1 EM APP.JS!\n\n\n\n")
+	}
+	
+	sequelize.query(instrucaoSql, {
+		model: Leitura,
+		mapToModel: true 
+	})
+	.then(resultado => {
+		console.log(`Encontrados: ${resultado.length}`);
+		res.json(resultado);
+	}).catch(erro => {
+		console.error(erro);
+		res.status(500).send(erro.message);
+	});
+});
 
 router.get('/tempo-real/:idcaminhao', function(req, res, next) {
 	console.log('Recuperando caminhões');

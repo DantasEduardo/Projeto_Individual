@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
 			field: 'descricao',
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		fk: {
+			field: 'fkCadastro',
+			type: DataTypes.INTEGER,
+			allowNull: false
 		}
 	}, 
 	{

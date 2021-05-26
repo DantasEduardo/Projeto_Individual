@@ -12,3 +12,11 @@ create table Cadastro(
     login varchar(45),
     senha varchar(45)
     );
+    
+create table Treinos(
+	idTreino int primary key auto_increment,
+    nome varchar(20),
+    descricao varchar(800),
+    fkCadastro int,
+    foreign key (fkCadastro) references Cadastro(idCadastro)
+);

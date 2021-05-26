@@ -27,12 +27,12 @@ router.get('/', function(req, res, next) {
 	console.log('Recuperando todas as publicações');
 	
     let instrucaoSql = `SELECT 
-    usuario.nome,
+    cadastro.nome,
     descricao
-    FROM publicacao
-    INNER JOIN usuario
-    ON Publicacao.fkUsuario = Usuario.id
-    ORDER BY publicacao.id DESC`;
+    FROM comentario
+    INNER JOIN cadastro
+    ON fkCadastro = idCadastro
+    ORDER BY idCadastro DESC`;
 
 	sequelize.query(instrucaoSql, {
 		model: Publicacao,
@@ -48,19 +48,18 @@ router.get('/', function(req, res, next) {
 });
 
 
+
 /* ROTA QUE RECUPERA AS PUBLICAÇÕES DE UM USUÁRIO PELO ID */
-router.get('/:idUsuario', function(req, res, next) {
+router.get('/:idCadastro', function(req, res, next) {
 	console.log('Recuperando todas as publicações');
 	
-	var idUsuario = req.params.idUsuario;
+	let idCadastro = req.params.idCadastro;
 
     let instrucaoSql = `SELECT 
-    usuario.nome,
-    descricao
-    FROM publicacao
-    INNER JOIN usuario
-    ON Publicacao.fkUsuario = Usuario.id
-    WHERE fkUsuario = ${idUsuario}
+    email,
+    login,
+    FROM cadastro
+    WHERE idCadastro = ${idCadastro}
     ORDER BY publicacao.id DESC`;
 
 	sequelize.query(instrucaoSql, {

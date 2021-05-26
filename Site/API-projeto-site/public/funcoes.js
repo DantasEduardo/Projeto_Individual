@@ -2,8 +2,8 @@ let login_usuario;
 let nome_usuario;
 
 function redirecionar_login() {
-    // window.location.href = 'login.html';
-    console.log('Não funciona')
+    window.location.href = 'login.html';
+
 }
 
 function verificar_autenticacao() {

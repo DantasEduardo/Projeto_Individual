@@ -26,7 +26,7 @@
                 <li><a href="forum.html">Fórum</a></li>
                 <li><a href="treinos.html">Treinos</a></li>
                 <li><a href="perfil.html">Perfil</a></li>
-                <li><a href="index.html" onclick="logoff()">Sair</a></li>
+                <li><a href="#" onclick="logoff()">Sair</a></li>
             </ul>
         </div>
     </div><br>
@@ -48,12 +48,19 @@
 
            <!-- <a class="btn" href="login.html" style="margin-left: 60px;">Cadastrar</a> -->
         </form><br>
-          <button class="btn" onclick="add_campo()">Adicionar Exercicio</button><br>
-          <button class="btn" onclick="add_tabela_treino()">Confirmar</button><br>
+        <button class="btn" onclick="add_campo()">Adicionar Exercicio</button><br>
+        <button class="btn" onclick="add_valores_tabela()()">Confirmar</button><br>
       </div>
+    <div id="formulario_treino_delete">
+      <form id="form_delete">
+        Nome do Treino que quer <b>REMOVER</b>
+        <input type="text" id='nome_treino_del' name="nomeTreinoDel" class="input-treino" placeholder="Treino 1">
+      </form>
+      <button class="btn" onclick="del_valores_tabela()">DELETAR</button><br>
+    </div>
         <div class="btn_treino">
             <button onclick="add_treino()" class="btn">+Adicionar treino</button>
-            <button onclick="remove_treino()" class="btn">-Remover treino</button>
+            <button onclick="remover_treino()" class="btn">-Remover treino</button>
         </div><br>
         <div id="tables_treino" class="btn_treino">
         </div>
@@ -72,7 +79,7 @@
         <div class="container">
             <div class="style_footer">
                 <div class="div_footer_telefone"><img class="icones_footer" src="img/old-typical-phone.png"> Telefone <br> (11)4002-8922</div>
-                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> dionysus@bandtec.com.br</div>
+                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> email@bandtec.com.br</div>
                 <div class="div_footer_ajuda"><img class="icones_footer" src="img/help.png" alt=""> Ajuda <br> Dúvidas Frequentes</div>
             </div>
         </div>
@@ -91,32 +98,32 @@
 
 
   function obterDadosPrimeiraVez() {
-        console.log("executei obterDadoPrimeiraVez")
-      
-        fetch(`/leituras/ultimas/treino`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    // resposta.reverse();
-                    for(i = 0; i < resposta.length; i++) {
-                        var registro = resposta[i];
-                        var nome = [];
-                        var desc = [];
-                        nome.push(registro.nome);
-                        desc.push(registro.descricao);
-                        decompor_descricao_BD(desc,nome);
-                    } 
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+    tables_treino.innerHTML = '';
+    console.log("executei obterDadoPrimeiraVez")
+    var  idCadastro = sessionStorage.id_comentario_meuapp;
+    fetch(`/leituras/ultimas/treino/${idCadastro}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+        for(i = 0; i < resposta.length; i++) {
+          var registro = resposta[i];
+          var nome = [];
+          var desc = [];
+          nome.push(registro.nome);
+          desc.push(registro.descricao);
+          decompor_descricao_BD(desc,nome);
+        } 
+        });
+      }else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
     obterDadosGrafico1()
-    }
-    function decompor_descricao_BD(desc,nome){
+  }
+  function decompor_descricao_BD(desc,nome){
       var desc=desc[0];
       desc_separado = desc.split(',');
       var num_row = Math.trunc(desc_separado.length/3)+2;
@@ -196,41 +203,21 @@
     divMapping.push([2, 2, 2])
  }
   
-    function add_tabela_treino(){
-      var countRow = 0;
-      var countCol = 0;
-      var row_container = document.getElementById("tables_treino");
-      var table = document.createElement("table");
-      table.classList.add("table_treino");
-      table.id=`table_${table_num}`;
-      row_container.appendChild(table); 
-      var tbody = document.createElement("tbody");
-      table.appendChild(tbody);
-      while (countRow <= num_exercicio+1) {
-        var tr_row = document.createElement("tr");
-        tbody.appendChild(tr_row); 
-      while (countCol < 3) {
-        var td = document.createElement("td"); 
-        td.classList.add("box");
-        td.id = `tabela_${table_num}_box_${countRow}_${countCol}`;
-        tr_row.appendChild(td);
-        if (divMapping[countRow][countCol] == 0) {
-          td.classList.remove("box");
-        }else if(divMapping[countRow][countCol] == 1){
-              td.classList.remove("box");
-              td.classList.add("box_title");
-              td.innerHTML=`${nome_treino.value}`
+  function add_valores_tabela(){
+    if(num_exercicio>1){
+        for(i=1;i<=num_exercicio;i++){
+          var rep = document.getElementById(`qtd_rep_${i}`);
+          var exercicio = document.getElementById(`exercicio_${i}`);
+          var time = document.getElementById(`temp_${i}`);
+
+          document.getElementById('sendBD').value += ([rep.value,exercicio.value,`${time.value},`]);
         }
-          countCol++;
-        }
-      countRow++; 
-      countCol = 0;      
+      }else{ 
+        document.getElementById('sendBD').value += ([qtd_rep_1.value,exercicio_1.value,`${temp_1.value},`]);
+      }   
+      document.getElementById('formulario_treino').style.display = 'none';
+      send_treino_bd()
     }
-    add_valores_tabela() 
-    table_num++;
-    num_exercicio = 1;
-    reset_form()
-  } 
   
   function reset_form(){
     form_treino.innerHTML = `Nome do Treino
@@ -245,50 +232,24 @@
                             Tempo de execução do Exercicio 1
                             <input type="text" id="temp_1" class="input-treino" placeholder="-">
                             <input type="text" id="sendBD" name ='sendBD' style="display: none;">`;
+    table_num++;
+    num_exercicio = 1;
   }
   
-  function add_valores_tabela(){
-    var valor_form = [];
-    valor_form.push(["Repetições","Exercicío","Tempo"]);
-    if(num_exercicio>1){
-      for(i=1;i<=num_exercicio;i++){
-        var rep = document.getElementById(`qtd_rep_${i}`);
-        var exercicio = document.getElementById(`exercicio_${i}`);
-        var time = document.getElementById(`temp_${i}`);
-        valor_form.push([rep.value,exercicio.value,time.value]);
-        document.getElementById('sendBD').value += ([rep.value,exercicio.value,`${time.value},`]);
-      }
-      console.log(valor_form);
-      console.log(valor_form.length);
-    }else{
-      valor_form.push([qtd_rep_1.value,exercicio_1.value,temp_1.value]); 
-      document.getElementById('sendBD').value += ([qtd_rep_1.value,exercicio_1.value,`${temp_1.value},`]);
-    }   
-    // x começa em 1 para pular a primeira linha da tabela 
-    // e depois subtraido para percorrer o array do ponto 0,0
-        for(x=1;x<=num_exercicio+1;x++){
-          for(y=0;y<3;y++){
-            document.getElementById(`tabela_${table_num}_box_${x}_${y}`).innerHTML=valor_form[x-1][y];
-          }
-        }
-        document.getElementById('formulario_treino').style.display = 'none';
-        send_treino_bd()
-  }
 
 function send_treino_bd() {
         console.log(sendBD.value)
         var formulario = new URLSearchParams(new FormData(form_treino));
-        fetch("/usuarios/treino", {
+        var  idCadastro = sessionStorage.id_comentario_meuapp;
+        fetch(`/usuarios/treino/${idCadastro}`, {
             method: "POST",
             body: formulario
         }).then(function (response) {
-            
             if (response.ok) {
-
                 console.log('Enviado com sucesso');
-
+                reset_form()
+                obterDadosPrimeiraVez()
             } else {
-
                 console.log('Erro de cadastro!');
                 response.text().then(function (resposta) {
                     alert(resposta);
@@ -298,10 +259,59 @@ function send_treino_bd() {
     return false;
 }
    
+
+  function remover_treino(){
+    document.getElementById('formulario_treino_delete').style.display = 'flex';
+  }
+
+  function del_valores_tabela(){
+    var nome = nome_treino_del.value;
+    fetch(`/usuarios/${nome}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    remover(resposta);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                console.log("Nenhum resultado encontrado ou erro na API");
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção das publicações: ${error.message}`);
+        });
+    
+  }
+  function remover(resposta){
+    id = resposta[0];
+    idTreino = id.idCadastro;
+    fetch(`/usuarios/remove/${idTreino}`)
+        .then(resposta => {
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                   
+                    console.log('Deletado com sucesso');
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                console.log("Nenhum resultado encontrado ou erro na API");
+            }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção das publicações: ${error.message}`);
+        });
+    
+  }
+
+
     //Configuração do gráfico
     function configurarGrafico1() {
         console.log("executei configurarGrafico1")
         var configuracoes = {
+          type: 'bar',
             responsive: true,
             hoverMode: 'index',
             stacked: false,
@@ -316,9 +326,9 @@ function send_treino_bd() {
                     position: 'left',
                     id: 'y-repeticao',
                     // grid line settings
-                    gridLines: {
-                        drawOnChartArea: false, // only want the grid lines for one axis to show up
-                    },
+                    // gridLines: {
+                    //     drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    // },
                 }],
             }
         };
@@ -328,8 +338,8 @@ function send_treino_bd() {
   function obterDadosGrafico1() {
         console.log("executei obterDadosGraficoPrimeiraVez")
         // alterarCoresBotoes(IDvariacao);
-
-        fetch(`/leituras/ultimas/repeticao`, { cache: 'no-store' }).then(function (response) {
+        var  idCadastro = sessionStorage.id_comentario_meuapp;
+        fetch(`/leituras/ultimas/repeticao/${idCadastro}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -384,9 +394,9 @@ function send_treino_bd() {
             data: dados,
             options: configurarGrafico1()
         });
-
         // setTimeout(() => atualizarGrafico(IDvariacao, dados), 2000);
     }
+    verificar_autenticacao();
     // const labelsBars = ['Colisa','Tetra','Coridora','Molinésia','Arco-íris','Betta'];
     // const dataBars = {
     //   labels: labelsBars,

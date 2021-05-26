@@ -44,7 +44,7 @@
 
     function entrar() {
         var formulario = new URLSearchParams(new FormData(form_login));
-        fetch("/usuarios/autenticar", {
+        fetch("/usuarios/autenticar_admin", {
             method: "POST",
             body: formulario
         }).then(resposta => {
@@ -56,7 +56,7 @@
                     sessionStorage.login_usuario_meuapp = json.login;
                     sessionStorage.nome_usuario_meuapp = json.nome;
                     sessionStorage.id_comentario_meuapp = json.idCadastro;
-                    window.location.href = 'index_logado.html';
+                    window.location.href = 'pag_admin.html';
                 });
 
             } else {

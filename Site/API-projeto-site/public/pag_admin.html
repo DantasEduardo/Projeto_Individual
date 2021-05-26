@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Adm</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- script do google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="funcoes.js"></script>
+    
+    <!-- scripts do Chart.js -->
+    <script type="text/javascript" src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
+    <!-- <script type="text/javascript" src="https://www.chartjs.org/samples/latest/utils.js"></script> -->
+    <script type="text/javascript" src="funcoes.js"></script>
+</head>
+<body onload=obterDadosPrimeiraVez>
+    <div class="header">
+        <div class="container">
+            <h1><a href="index_logado.html">BUSHIDO</h1>
+            <ul>
+                <li><a href="#" onclick="logoff()">Sair</a></li>
+            </ul>
+        </div>
+    </div><br>
+    <div class="container">
+         <!-- <div class="graph"> -->
+        <div>
+            <canvas id="myChartLine"></canvas>
+        </div>
+        <!-- <div class="graph">
+            <canvas id="myChartBars"></canvas>
+        </div>
+        <div class="graph">
+            <canvas id="myChartPie"></canvas>
+          </div> -->
+    </div>
+    <div class="footer">
+        <div class="container">
+            <div class="style_footer">
+                <div class="div_footer_telefone"><img class="icones_footer" src="img/old-typical-phone.png"> Telefone <br> (11)4002-8922</div>
+                <div class="div_footer_email"><img class="icones_footer" src="img/email.png"> Email  <br> dionysus@bandtec.com.br</div>
+                <div class="div_footer_ajuda"><img class="icones_footer" src="img/help.png" alt=""> Ajuda <br> Dúvidas Frequentes</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+  window.onload = obterDadosGrafico();
+   
+    //Configuração do gráfico
+    function configurarGrafico() {
+        console.log("executei configurarGrafico1")
+        var configuracoes = {
+          type: 'bar',
+            responsive: true,
+            hoverMode: 'index',
+            stacked: false,
+            title: {
+                display: true,
+                text: 'Idade por arte marcial'
+            },
+            scales: {
+                yAxes: [{
+                    type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                    display: false,
+                    position: 'left',
+                    id: 'y-repeticao',
+                    // grid line settings
+                    // gridLines: {
+                    //     drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    // },
+                }],
+            }
+        };
+        return configuracoes;
+    }
+
+  function obterDadosGrafico() {
+        console.log("executei obterDadosGraficoPrimeiraVez")
+        // alterarCoresBotoes(IDvariacao);
+
+        fetch(`/leituras/cadastro`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    // resposta.reverse();
+
+                    var dados = {
+                        labels: [],
+                        datasets: [
+                            {
+                                yAxisID: 'y-repeticao',
+                                label: 'Idade',
+                                borderColor: 'rgba(0,0,0,1)',
+                                backgroundColor: 'rgba(255,255,255,1)',
+                                fill: false,
+                                data: []
+                            }
+                        ]
+                    };
+                    for (i = 0; i < resposta.length; i++) {
+                        var registro = resposta[i];
+                        var resultado_arte_marcial = registro.arteMarcial;
+                        dados.labels.push(resultado_arte_marcial);
+                        
+                        var resultado_idade = registro.idade;
+                        var idade_num = Number(resultado_idade)
+                        var data_now = agora()
+                        dados.datasets[0].data.push(data_now-idade_num)
+                         
+                    }
+                    console.log(JSON.stringify(dados));
+                    // div_aguarde.style.display = 'none';
+                    plotarGrafico(dados);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
+
+    function plotarGrafico(dados) {
+        console.log("executei plotarGrafico1")
+        console.log('iniciando plotagem do gráfico...');
+
+        var ctx = myChartLine.getContext('2d');
+        window.grafico_linha = Chart.Line(ctx, {
+            data: dados,
+            options: configurarGrafico()
+        });
+        // setTimeout(() => atualizarGrafico(IDvariacao, dados), 2000);
+    }
+    verificar_autenticacao();
+    function agora() {
+        const agora_d = new Date();
+        return agora_d.getFullYear()
+      }
+    // const labelsBars = ['Colisa','Tetra','Coridora','Molinésia','Arco-íris','Betta'];
+    // const dataBars = {
+    //   labels: labelsBars,
+    //   datasets: [
+    //     {
+    //     label: 'Quantidade por espécie',
+    //     backgroundColor: ['red','blue','yellow'],
+    //     borderColor: 'rgb(255, 99, 132)',
+    //     data: [10, 70, 50, 5, 30, 65],
+    //     }
+    //   ]
+    // };
+  </script>  
+</html>
