@@ -188,6 +188,7 @@
 
   function add_treino(){
     document.getElementById('formulario_treino').style.display = 'flex';
+    document.getElementById('formulario_treino_delete').style.display = 'none'
   }
   
   function add_campo(){
@@ -262,6 +263,7 @@ function send_treino_bd() {
 
   function remover_treino(){
     document.getElementById('formulario_treino_delete').style.display = 'flex';
+    document.getElementById('formulario_treino').style.display = 'none'
   }
 
   function del_valores_tabela(){
@@ -293,11 +295,13 @@ function send_treino_bd() {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                    
                     console.log('Deletado com sucesso');
-
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                console.log("Nenhum resultado encontrado ou erro na API");
+                    
+                  });
+                } else {
+                  document.getElementById('formulario_treino_delete').style.display = 'none';
+                  obterDadosPrimeiraVez()
+                  console.error('Nenhum dado encontrado ou erro na API');
+                  console.log("Nenhum resultado encontrado ou erro na API");
             }
         })
         .catch(function (error) {

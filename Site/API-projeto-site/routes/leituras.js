@@ -96,12 +96,10 @@ router.get('/cadastro', function(req, res, next) {
 
 	if (env == 'dev') {
 		// abaixo, escreva o select de dados para o Workbench
-		instrucaoSql = `select  
-		arteMarcial, 
-		idade,
-		DATE_FORMAT(idade,'%Y') as idade
-		from cadastro
-		order by idCadastro`;
+		instrucaoSql = `select arteMarcial, 
+		avg((DATE_FORMAT(now(),'%Y'))-(DATE_FORMAT(idade,'%Y'))) as idadeAtual 
+		from cadastro group by arteMarcial;`;
+		
 	} else if (env == 'production') {
 		// abaixo, escreva o select de dados para o SQL Server
 		instrucaoSql = `select 

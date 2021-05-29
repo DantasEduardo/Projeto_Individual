@@ -70,9 +70,9 @@
                     position: 'left',
                     id: 'y-repeticao',
                     // grid line settings
-                    // gridLines: {
-                    //     drawOnChartArea: false, // only want the grid lines for one axis to show up
-                    // },
+                    gridLines: {
+                        drawOnChartArea: false, // only want the grid lines for one axis to show up
+                    },
                 }],
             }
         };
@@ -104,13 +104,12 @@
                     };
                     for (i = 0; i < resposta.length; i++) {
                         var registro = resposta[i];
+
                         var resultado_arte_marcial = registro.arteMarcial;
                         dados.labels.push(resultado_arte_marcial);
                         
-                        var resultado_idade = registro.idade;
-                        var idade_num = Number(resultado_idade)
-                        var data_now = agora()
-                        dados.datasets[0].data.push(data_now-idade_num)
+                        var resultado_idade = registro.idadeAtual;
+                        dados.datasets[0].data.push(resultado_idade)
                          
                     }
                     console.log(JSON.stringify(dados));
@@ -139,10 +138,7 @@
         // setTimeout(() => atualizarGrafico(IDvariacao, dados), 2000);
     }
     verificar_autenticacao();
-    function agora() {
-        const agora_d = new Date();
-        return agora_d.getFullYear()
-      }
+    
     // const labelsBars = ['Colisa','Tetra','Coridora','Molinésia','Arco-íris','Betta'];
     // const dataBars = {
     //   labels: labelsBars,

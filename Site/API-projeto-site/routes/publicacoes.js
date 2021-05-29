@@ -31,8 +31,7 @@ router.get('/', function(req, res, next) {
     descricao
     FROM comentario
     INNER JOIN cadastro
-    ON fkCadastro = idCadastro
-    ORDER BY idCadastro DESC`;
+    ON fkCadastro = idCadastro`;
 
 	sequelize.query(instrucaoSql, {
 		model: Publicacao,
